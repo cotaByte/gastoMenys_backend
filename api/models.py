@@ -11,7 +11,7 @@ class Category(models.Model):
     name= models.CharField(max_length=50)
     
 class User(models.Model):
-    id_user= models.UUIDField(default=uuid4(), editable=False)
+    id_user= models.UUIDField(default=uuid4(), editable=False,unique=True)
     username = models.CharField(max_length=35)
     name =  models.CharField(max_length=35)
     surnames = models.CharField(max_length=60)

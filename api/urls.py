@@ -11,5 +11,5 @@ router.register(r'users',views.UserViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
-    path('getTransactionsByMonth/<str:user_id>/<int:year>/<int:month>/', views.TransactionListView.as_view())
+    path('getTransactionsByMonth/<uuid:user>/<int:year>/<int:month>/', views.TransactionListView.as_view())
 ]
