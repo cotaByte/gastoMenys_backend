@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from .serializer import *
+from django.contrib.auth import authenticate
 from .models import *
 import calendar
 from datetime import datetime, timedelta
@@ -30,3 +31,31 @@ class TransactionListView(View):
         transactions = Transaction.objects.filter(date__year=year, date__month=month,id_user=user_id)
         serialized_data = self.serializer_class(transactions, many=True).data
         return JsonResponse({'transactions': serialized_data})
+    
+class LoginApi(View):
+    def get(self,request,username,pwd):
+        user= get_object_or_404( User,username=username,password=pwd)
+
+        if user is not None:
+            
+            data={
+            'id':user.id_user,
+            'username':user.username ,
+            'name':user.name ,
+            'surnames':user.surnames,
+            'image':user.image,
+            'work':user.work_as,
+            }
+            
+            response={
+                'ok':True,
+                'user':data
+            }
+        else:
+            
+            response={
+                'ok':False,
+                'user':"Invalid_credentials"
+            }
+            
+        return JsonResponse(response)

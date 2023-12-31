@@ -13,6 +13,7 @@ class Category(models.Model):
 class User(models.Model):
     id_user= models.UUIDField(default=uuid4(), editable=False,unique=True)
     username = models.CharField(max_length=35)
+    password= models.CharField(null=True,max_length=40)
     name =  models.CharField(max_length=35)
     surnames = models.CharField(max_length=60)
     image = models.TextField(null=True)
